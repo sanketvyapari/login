@@ -1,0 +1,92 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+    <link rel="stylesheet" href="{% static "admin/css/changelists.css" %}" xmlns="http://www.w3.org/1999/html">
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+      thead th{padding: 5px 10px !important;}
+      .select-action{
+            text-align: center;
+            width: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% if not is_popup %}
+
+{% endif %}
+
+{% block coltype %}{% endblock %}
+
+{% block content_title %}<h1>Dashboard</h1>{% endblock %}
+{% block content_subtitle %}<h2>Custom Input Data</h2>{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+    <div id="changelist">
+        <div class="changelist-form-container">
+        <form action='{% url 'submit_to_import_tracer_data' %}' method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% block result_list %}
+                <div class="results" >
+                    <table id="result_list">
+                        <thead>
+                            <tr>
+                                <th class="action-checkbox">
+                                   <div class="text">
+                                       <span>
+                                           &nbsp;
+                                       </span>
+                                   </div>
+                                   <div class="clear"></div>
+                                </th>
+                                <th class="sortable column-email sorted ascending">
+                                    Col 1
+                                </th>
+                                <th class="sortable column-email sorted ascending">
+                                    Col 2
+                                </th>
+                                <th class="sortable column-email sorted ascending">
+                                    Data
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for datum in data %}
+                            	 <tr>
+                                    <td class="action-checkbox select-action">
+                                       <div class="text">
+                                           <span>
+                                               <input type="checkbox" id="action-toggle"  name="selected" value="{{ datum.col1 }}">
+                                           </span>
+                                       </div>
+                                       <div class="clear"></div>
+                                    </td>
+                                     <td>
+                                        {{ datum.col1 }}
+                                    </td>
+                                     <td>
+                                        {{ datum.col2 }}
+                                    </td>
+                                     <td>
+                                        {{ datum.col3 }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endblock %}
+            <input type="submit" value="Import Selected">
+        </form>
+        </div>
+    </div>
+  </div>
+{% endblock %}

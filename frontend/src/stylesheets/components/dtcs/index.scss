@@ -1,0 +1,33 @@
+.react-tabs__tab-list {
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  font-weight: 300;
+  font-size: 1.5rem;
+  --border-opacity: 1;
+  border-color: #2c5282;
+  border-bottom: 1px solid #2c5282;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.react-tabs__tab {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.react-tabs__tab--selected {
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  font-weight: 500;
+  background-color: transparent;
+  border-style: none;
+  --border-opacity: 1;
+  border-color: #fff;
+  border-color: rgba(255, 255, 255, var(--border-opacity));
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+}

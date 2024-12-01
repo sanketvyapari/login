@@ -1,0 +1,16 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {{ title }} | {% trans 'Admin Tool' %}
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <a href="/admin/">
+            {% trans 'Admin Tool' %}
+        </a>
+    </h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

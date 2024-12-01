@@ -1,0 +1,15 @@
+*.pyc
+venv
+staticfiles
+logs
+media
+site_media
+.idea
+env.yaml
+env.prod.yaml
+*.sqlite3
+*.sql
+
+frontend/node_modules/
+frontend/build/
+frontend/.env

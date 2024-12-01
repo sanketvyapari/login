@@ -1,0 +1,23 @@
+*.pyc
+venv
+static_root
+staticfiles
+docker
+logs
+media
+site_media
+.idea
+env.yaml
+env.prod.yaml
+*.sqlite3
+*.sql
+.DS_Store
+terraform/stage/.terraform
+terraform/production/.terraform
+
+#Front End Ignore Files
+frontend/node_modules/
+frontend/build/
+frontend/.env
+node_modules
+frontend/yarn-error.log

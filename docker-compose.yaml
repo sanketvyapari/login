@@ -1,0 +1,72 @@
+version: "3"
+services:
+  web:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - sqs
+    environment:
+      - DEBUG=true
+      - SECRET_KEY=your_secret_key
+      - CELERY_BROKER_URL=celery_broker
+      - CELERY_TASK_DEFAULT_QUEUE = que_name
+      - ALLOWED_HOSTS=localhost
+      - CORS_ALLOWED_ORIGINS=http://lolcahost
+      - DB_NAME=your_db_name
+      - DB_USER=your_db_user
+      - DB_PASSWORD=your_db_passwrd
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - ENVIRONMENT=local
+      - SQS_ENDPOINT=add_if_wanted_to_run_sqs
+      - SQS_REGION=add_if_wanted_to_run_sqs
+      - SQS_QUEUE_NAME=add_if_wanted_to_run_sqs
+      - AWS_ACCESS_KEY_ID=you_aws_access_key
+      - AWS_SECRET_ACCESS_KEY=you_aws_secret_key
+  worker:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    command: bash -c "celery -A authentication worker --loglevel=debug"
+    depends_on:
+      - web
+      - sqs
+    environment:
+      - DEBUG=true
+      - SECRET_KEY=your_secret_key
+      - CELERY_BROKER_URL=celery_broker
+      - CELERY_TASK_DEFAULT_QUEUE = que_name
+      - ALLOWED_HOSTS=localhost
+      - CORS_ALLOWED_ORIGINS=http://lolcahost
+      - DB_NAME=your_db_name
+      - DB_USER=your_db_user
+      - DB_PASSWORD=your_db_passwrd
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - ENVIRONMENT=local
+      - SQS_ENDPOINT=add_if_wanted_to_run_sqs
+      - SQS_REGION=add_if_wanted_to_run_sqs
+      - SQS_QUEUE_NAME=add_if_wanted_to_run_sqs
+      - AWS_ACCESS_KEY_ID=you_aws_access_key
+      - AWS_SECRET_ACCESS_KEY=you_aws_secret_key
+  db:
+    image: postgres:12
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker/db/pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app
+  sqs:
+    image: roribio16/alpine-sqs
+    ports:
+      - 9324:9324
+      - 9325:9325
+    volumes:
+      - ./config/elasticmq.conf:/opt/config/elasticmq.conf
