@@ -1,5 +1,5 @@
-STAGE_DOMAIN = "at.tracer.tweddle.tech"
-PRODUCTION_DOMAIN = "at.tracer.tweddle.io"
+STAGE_DOMAIN = ""
+PRODUCTION_DOMAIN = ""
 LOCAL_DOMAIN = "localhost:8000"
 COGNITO_PAYLOAD = {
     "client_id": "",
